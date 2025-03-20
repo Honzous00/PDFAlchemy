@@ -44,7 +44,7 @@ class PDFDecryptor(ttk.Frame):
         file_frame.pack(fill=tk.X, padx=20, pady=5)
         
         ttk.Button(file_frame, text="Vybrat PDF", command=self.select_file).pack(side=tk.LEFT)
-        self.file_label = ttk.Label(file_frame, text="Žádný soubor vybrán")
+        self.file_label = ttk.Label(file_frame, text="Nevybrán žádný soubor")
         self.file_label.pack(side=tk.LEFT, padx=5)
 
         # Sekce s heslem

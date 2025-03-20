@@ -15,11 +15,16 @@ class PDFCompressor(ttk.Frame):
         self.output_dir = ""
         
         # Ghostscript cesta s ošetřením pro PyInstaller
-        try:
-            base_path = sys._MEIPASS  # Pro EXE verzi
-        except AttributeError:
-            base_path = os.path.abspath(".")  # Pro normální běh
-        self.ghostscript_path = os.path.join(sys._MEIPASS, "gs_bin", "gswin64c.exe")
+        # Rozlišení režimů
+        if getattr(sys, 'frozen', False):  # EXE režim
+            base_dir = sys._MEIPASS
+            self.ghostscript_path = os.path.join(base_dir, "gs_bin", "gswin64c.exe")
+        else:  # Normální Python režim
+            self.ghostscript_path = r"C:\Program Files\gs\gs10.05.0\bin\gswin64c.exe"  # Upravte na vaši cestu!
+
+        # Kontrola existence
+        if not os.path.exists(self.ghostscript_path):
+            raise FileNotFoundError(f"Ghostscript nebyl nalezen na cestě: {self.ghostscript_path}")
         
         self.create_widgets()
         self.configure_styles()
@@ -48,7 +53,7 @@ class PDFCompressor(ttk.Frame):
         file_frame.pack(fill=tk.X, padx=20, pady=5)
         
         ttk.Button(file_frame, text="Vybrat PDF", command=self.select_files).pack(side=tk.LEFT)
-        self.file_label = ttk.Label(file_frame, text="Žádné soubory vybrány")
+        self.file_label = ttk.Label(file_frame, text="Nevybrán žádný soubor(y)")
         self.file_label.pack(side=tk.LEFT, padx=5)
 
         button_frame = ttk.Frame(main_frame)

@@ -39,7 +39,7 @@ class WelcomeTab(ttk.Frame):
         # Verze
         ttk.Label(
             content_frame,
-            text="Verze 1.0.0",
+            text="Verze 1.0.1",
             font=("Segoe UI", 10)
         ).pack(pady=5)
 
@@ -54,7 +54,7 @@ class WelcomeTab(ttk.Frame):
         ttk.Button(
             content_frame,
             text="GitHub Repozitář",
-            command=lambda: webbrowser.open("https://github.com/vas_ucet/pdf-toolkit"),
+            command=lambda: webbrowser.open("https://github.com/Honzous00/PDFAlchemy"),
             style="WhiteLink.TButton"
         ).pack(pady=5)
 
